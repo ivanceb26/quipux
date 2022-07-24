@@ -10,46 +10,44 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Table(name = "SONG")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Song {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Getter
-	@Setter
 	private int id;
 	
 	@Column(nullable = false) 
 	@Getter
-	@Setter
 	private String title;
 	
 	@Column(nullable = false) 
 	@Getter
-	@Setter
 	private String artist;
 	
 	@Column(nullable = false) 
 	@Getter
-	@Setter
 	private String album;
 	
 	@Column(nullable = false) 
 	@Getter
-	@Setter
 	private String year;
 	
 	@Column(nullable = false) 
 	@Getter
-	@Setter
 	private String category;
 	
 	@Getter
-	@Setter
 	@ManyToMany(mappedBy = "songs")
     private List<Playlist> playlists;
 
