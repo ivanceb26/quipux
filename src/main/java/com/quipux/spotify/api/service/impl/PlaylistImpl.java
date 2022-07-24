@@ -37,10 +37,7 @@ public class PlaylistImpl implements IPlaylist {
 
 	@Override
 	public List<PlaylistDTO> getPlaylists() {
-		List<PlaylistDTO> playlistsDTO = null;
-		List<Playlist> playlists = playlistRepository.findAll();
-		playlistsDTO = playlists.stream().map(param -> entityToDtoConverter.mapperToPlaylistDTO(param)).collect(Collectors.toList());
-		return playlistsDTO;
+		return playlistRepository.findAll().stream().map(entityToDtoConverter::mapperToPlaylistDTO).collect(Collectors.toList());
 	}
 	
 	@Override
@@ -50,16 +47,17 @@ public class PlaylistImpl implements IPlaylist {
 
 	@Override
 	public PlaylistDTO createPlaylistInfo(PlaylistDTO playlistDTO) {
-		Playlist playlistEntity = new Playlist();
-		playlistEntity.setDescription(playlistDTO.getDescription());
-		playlistEntity.setName(playlistDTO.getName());
+		Playlist playlist = new Playlist();
+		playlist.setDescription(playlistDTO.getDescription());
+		playlist.setName(playlistDTO.getName());
 		
-		List<Song> songs = playlistDTO.getSongs().stream().map(param -> dtoToEntityConverter.mapperToSong(param)).collect(Collectors.toList());
-		playlistEntity.setSongs(songs);
+		List<SongDTO> songsDTO = playlistDTO.getSongs();
+		if(!songsDTO.isEmpty()) {
+			playlist.setSongs(songsDTO.stream().map(dtoToEntityConverter::mapperToSong).collect(Collectors.toList()));
+		}
+		playlistRepository.save(playlist);
 		
-		playlistRepository.save(playlistEntity);
-		
-		return entityToDtoConverter.mapperToPlaylistDTO(playlistEntity);
+		return entityToDtoConverter.mapperToPlaylistDTO(playlist);
 	}
 
 	@Override

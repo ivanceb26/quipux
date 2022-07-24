@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -19,50 +23,27 @@ public class Playlist {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Getter
+	@Setter
 	private int id;
 	
 	@Column
+	@Getter
+	@Setter
 	private String name;
 	
 	@Column
+	@Getter
+	@Setter
 	private String description;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "song_playlist", 
       joinColumns = @JoinColumn(name = "song_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"))
+	@Getter
+	@Setter
     private List<Song> songs;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<Song> getSongs() {
-		return songs;
-	}
-
-	public void setSongs(List<Song> songs) {
-		this.songs = songs;
-	}
 	
 }
