@@ -1,4 +1,4 @@
-/*package com.quipux.spotify.api.converter;
+package com.quipux.spotify.api.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,4 +21,4 @@ public interface SourceTargetMapper {
 	PlaylistDTO playlistToPlaylistDTO(Playlist playlist);
 
     Playlist playlistDTOToPlaylist(PlaylistDTO playlistDTO);
-}*/
+}

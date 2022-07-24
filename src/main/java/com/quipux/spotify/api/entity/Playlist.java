@@ -27,12 +27,12 @@ public class Playlist {
 	@Setter
 	private int id;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String name;
 	
-	@Column
+	@Column(nullable = false)
 	@Getter
 	@Setter
 	private String description;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.quipux.spotify.api.converter.DtoToEntityConverter;
 import com.quipux.spotify.api.converter.EntityToDtoConverter;
+import com.quipux.spotify.api.converter.SourceTargetMapper;
 import com.quipux.spotify.api.dto.PlaylistDTO;
 import com.quipux.spotify.api.dto.SongDTO;
 import com.quipux.spotify.api.entity.Playlist;
@@ -55,6 +56,9 @@ public class PlaylistImpl implements IPlaylist {
 		if(!songsDTO.isEmpty()) {
 			playlist.setSongs(songsDTO.stream().map(dtoToEntityConverter::mapperToSong).collect(Collectors.toList()));
 		}
+		
+		//Playlist playlist = SourceTargetMapper.MAPPER.playlistDTOToPlaylist(playlistDTO);
+		
 		playlistRepository.save(playlist);
 		
 		return entityToDtoConverter.mapperToPlaylistDTO(playlist);
@@ -62,8 +66,11 @@ public class PlaylistImpl implements IPlaylist {
 
 	@Override
 	public boolean deletePlaylistInfo(String listName) {
-		// TODO Auto-generated method stub
-		return false;
+		Playlist playlist = playlistRepository.findByName(listName);
+		if(playlist != null) {
+			playlistRepository.delete(playlist);
+		}
+		return true;
 	}
 
 }

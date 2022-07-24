@@ -7,5 +7,5 @@ import com.quipux.spotify.api.entity.Playlist;
 
 @Repository
 public interface PlaylistRepository extends JpaRepository<Playlist, Integer> {
-
+	Playlist findByName(String name);
 }

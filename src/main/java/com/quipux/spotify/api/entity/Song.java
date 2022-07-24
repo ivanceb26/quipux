@@ -23,27 +23,27 @@ public class Song {
 	@Setter
 	private int id;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String title;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String artist;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String album;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String year;
 	
-	@Column
+	@Column(nullable = false) 
 	@Getter
 	@Setter
 	private String category;
