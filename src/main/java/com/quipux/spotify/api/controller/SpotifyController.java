@@ -26,12 +26,13 @@ public class SpotifyController {
 	@GetMapping(path = "/loginsimple", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<Model> getTokenSimple(final Model model,HttpSession httpSession) {
 		model.addAttribute("token", accessTokenService.getTokenSimple(httpSession));
+		model.addAttribute("message", "Token got successfully, you can get categories now");
 		return new ResponseEntity<>(model,HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/get-categories", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<Model> getCategories(final Model model,HttpSession httpSession) {
-		model.addAttribute("token", categoryService.getCategories(httpSession));
+		model.addAttribute("response", categoryService.getCategories(httpSession));
 		return new ResponseEntity<>(model,HttpStatus.OK);
 	}
 	
