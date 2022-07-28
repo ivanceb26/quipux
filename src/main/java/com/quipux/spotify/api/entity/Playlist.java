@@ -32,7 +32,7 @@ public class Playlist {
 	@Getter
 	private int id;
 	
-	@Column(nullable = false) 
+	@Column(nullable = false, unique=true) 
 	@Getter
 	private String name;
 	

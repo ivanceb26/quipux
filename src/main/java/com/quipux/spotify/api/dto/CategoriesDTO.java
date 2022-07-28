@@ -1,10 +1,8 @@
-package com.quipux.spotify.api.entity;
+package com.quipux.spotify.api.dto;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import com.quipux.spotify.api.entity.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +13,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Categories {
+public class CategoriesDTO {
 	
 	@Getter
 	private String href;
 	
 	@Getter
-	@ManyToMany(cascade = CascadeType.MERGE)
 	List<Category> items;
 	
 	@Getter
@@ -38,8 +35,4 @@ public class Categories {
 	
 	@Getter
 	private float total;
-	
-	@Getter
-	@ManyToMany(mappedBy = "categories")
-	private List<CategoriesResponse> categoriesResponse;
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.quipux.spotify.api.converter.PlaylistMapper;
 import com.quipux.spotify.api.dto.PlaylistDTO;
 import com.quipux.spotify.api.entity.Playlist;
+import com.quipux.spotify.api.handler.RecordNotFoundException;
 import com.quipux.spotify.api.repository.PlaylistRepository;
 import com.quipux.spotify.api.service.IPlaylist;
 
@@ -27,16 +28,18 @@ public class PlaylistImpl implements IPlaylist {
 	
 	@Override
 	public PlaylistDTO getPlaylistByQuery(String listName) {
-		return PlaylistMapper.MAPPER.playlistToPlaylistDTO(playlistRepository.findByName(listName));
+		Playlist playlist = playlistRepository.findByName(listName);
+		if(playlist==null) {
+			throw new RecordNotFoundException("Record Not Found");
+		}
+		return PlaylistMapper.MAPPER.playlistToPlaylistDTO(playlist);
 	}
 
 	@Override
 	public PlaylistDTO createPlaylistInfo(PlaylistDTO playlistDTO) {
 		
 		Playlist playlist = PlaylistMapper.MAPPER.playlistDTOToPlaylist(playlistDTO);
-		
 		playlistRepository.save(playlist);
-		
 		return PlaylistMapper.MAPPER.playlistToPlaylistDTO(playlist);
 	}
 
@@ -45,6 +48,8 @@ public class PlaylistImpl implements IPlaylist {
 		Playlist playlist = playlistRepository.findByName(listName);
 		if(playlist != null) {
 			playlistRepository.delete(playlist);
+		}else {
+			throw new RecordNotFoundException("Record Not Found");
 		}
 		return true;
 	}

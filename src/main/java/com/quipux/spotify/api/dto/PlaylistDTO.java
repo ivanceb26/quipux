@@ -3,6 +3,8 @@ package com.quipux.spotify.api.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +19,12 @@ public class PlaylistDTO implements Serializable{
 	
 	@Getter
 	private int id;
-
+	
+	@NotEmpty
 	@Getter
 	private String name;
 	
+	@NotEmpty
 	@Getter
 	private String description;
 	
